@@ -159,16 +159,16 @@ namespace PDFGenerate
             page = document.Pages.Add();
             graphics = page.Graphics;
 
-            if (count_of_page > 1)
-            {
-                result = new PdfLayoutResult(page, new RectangleF(0, 0, page.Graphics.ClientSize.Width / 2, 100));
-                bound = new RectangleF(0, result.Bounds.Bottom - 50, graphics.ClientSize.Width, 250);
-            }
-            else
-            {
+           // if (count_of_page > 1)
+           // {
+              //  result = new PdfLayoutResult(page, new RectangleF(0, 0, page.Graphics.ClientSize.Width / 2, 100));
+             //   bound = new RectangleF(0, result.Bounds.Bottom - 50, graphics.ClientSize.Width, 250);
+           // }
+           // else
+           // {
                 result = new PdfLayoutResult(page, new RectangleF(0, 0, page.Graphics.ClientSize.Width / 2, 180));
                 bound = new RectangleF(0, result.Bounds.Bottom + 15, graphics.ClientSize.Width, 250);
-            }
+           // }
 
             subHeadingFont = new PdfStandardFont(PdfFontFamily.TimesRoman, 14);
             //Draw Rectangle place on location
@@ -359,19 +359,23 @@ namespace PDFGenerate
                 {
                     i_value = i;
 
-                   // elementContent = new PdfTextElement("Continued..", new PdfStandardFont(PdfFontFamily.TimesRoman, 12));
-                   // elementContent.Brush = new PdfSolidBrush(new PdfColor(Color.Black));
-
-                 
-
-                 //result = elementContent.Draw(page, new PointF(tableX_value + 40, space_in_page + 18));
+                    // elementContent = new PdfTextElement("Continued..", new PdfStandardFont(PdfFontFamily.TimesRoman, 12));
+                    // elementContent.Brush = new PdfSolidBrush(new PdfColor(Color.Black));
 
 
+
+                    //result = elementContent.Draw(page, new PointF(tableX_value + 40, space_in_page + 18));
+
+                  //  DrawFooterValue();
                     DrawFooter();
+                    DrawFooterValue();
                     createRectangle();
+                    DrawHeader();
                     createHeaderWithVerticleLine();
-                    space_in_page = 0;
-                    space_in_page = 270;
+                    
+                   
+                    // space_in_page = 0;
+                    //space_in_page = 270;
 
                     //reload data
 
@@ -538,16 +542,8 @@ namespace PDFGenerate
             graphics.DrawLine(new PdfPen(new PdfColor(126, 151, 173), 0.70f), new PointF(0, HSNbound.Bottom), new PointF(graphics.ClientSize.Width, HSNbound.Bottom));
 
 
-            //footer value
-            PdfTextElement footervalue = new PdfTextElement("for " + organization_name, new PdfStandardFont(PdfFontFamily.TimesRoman, 12));
-            footervalue.Brush = new PdfSolidBrush(new PdfColor(Color.Black));
-            result = footervalue.Draw(page, new PointF(graphics.ClientSize.Width-150, HSNbound.Bottom + 30));
+        
 
-
-            PdfTextElement footervalue1 = new PdfTextElement("Authorised Signatory", new PdfStandardFont(PdfFontFamily.TimesRoman, 10));
-            footervalue1.Brush = new PdfSolidBrush(new PdfColor(Color.Black));
-            result = footervalue1.Draw(page, new PointF(graphics.ClientSize.Width - 150, HSNbound.Bottom + 70));
-       
 
             float footerVerticle_x = 0;
             float HSNVerticle_x = 0;
@@ -658,7 +654,15 @@ namespace PDFGenerate
 
         public void DrawFooterValue()
         {
+            //footer value
+            PdfTextElement footervalue = new PdfTextElement("for " + organization_name, new PdfStandardFont(PdfFontFamily.TimesRoman, 12));
+            footervalue.Brush = new PdfSolidBrush(new PdfColor(Color.Black));
+           footervalue.Draw(page, new PointF(graphics.ClientSize.Width - 150, result.Bounds.Bottom + 100));
 
+
+            PdfTextElement footervalue1 = new PdfTextElement("Authorised Signatory", new PdfStandardFont(PdfFontFamily.TimesRoman, 10));
+            footervalue1.Brush = new PdfSolidBrush(new PdfColor(Color.Black));
+            result = footervalue1.Draw(page, new PointF(graphics.ClientSize.Width - 150, result.Bounds.Bottom + 150));
         }
     
     }
